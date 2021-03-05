@@ -105,14 +105,6 @@ fullpopularbeer <- fullpopularbeer %>%
   mutate(date = as.Date(date, "%d%m%y")) %>%
   summarise(ProductName, total, date)
 
-#beerlong <- fullpopularbeer %>%
-#  pivot_wider(names_from = ProductName, values_from = ProductQuantity, values_fill = 0, values_fn = sum)
-
-#Calculate cumulative frequency
-#cumsumbeer <- fullpopularbeer %>%
-#  group_by(ProductName) %>%
-#  mutate(cumsum = cumsum(ProductQuantity))
-
 #Perday
 fullpopularbeer <- fullpopularbeer %>%
   count(ProductName, date, wt = total) %>%
@@ -124,22 +116,6 @@ rolling <- fullpopularbeer %>%
   mutate(average = rollmean(n, k = 10, fill = NA))
 
 rolling$ProductName <- str_trim(rolling$ProductName, side = c("right"))
-
-#Create template for plot for Ambar
-rolling %>%
-  filter(ProductName == "Ambar") %>%
-  ggplot(aes(x = date, y = average)) +
-  geom_bar(stat = "identity",
-           width = 0.1,
-           colour = "red") +
-  theme_bw() +
-  theme(
-    panel.grid = element_blank()
-  ) +
-  scale_x_date(name = "Date", 
-                 expand = c(0, 0)) +
-  scale_y_continuous(name = "Average sales",
-                     expand = c(0, 0))
 
 #Create list of products
 products = unique(rolling$ProductName)
