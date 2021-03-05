@@ -11,4 +11,4 @@ There are a couple of different directions in which the analysis has gone.
 
 
 <h4>Brand churn</h4>
-![Churn of average sales of beer brands](beer-average-sales.png)
+![Churn of average sales of beer brands](https://github.com/jessyph/wise-bartender/blob/main/beer-average-sales.png)
